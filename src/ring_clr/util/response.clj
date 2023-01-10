@@ -2,12 +2,6 @@
   "Functions for generating and augmenting response maps."
   (:require [clojure.string :as str]
             [ring-clr.util.parsing :as parsing]))
-;;             [ring.util.io :refer [last-modified-date]]
-;;             
-;;             [ring.util.time :refer [format-date]])
-;;   (:import [java.io File]
-;;            [java.util Date]
-;;            [java.net URL URLDecoder URLEncoder]))
 
 (def redirect-status-codes
   "Map a keyword to a redirect status code."

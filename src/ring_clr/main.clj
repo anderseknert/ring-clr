@@ -1,7 +1,6 @@
 (ns ring-clr.main
   (:require [clojure.pprint :as pp]
-            [ring-clr.adapter.httplistener :as httplistener]
-            [ring-clr.util.response :as rsp]))
+            [ring-clr.adapter.httplistener :as httplistener]))
 
 (defn handler [request]
   (pp/pprint request)

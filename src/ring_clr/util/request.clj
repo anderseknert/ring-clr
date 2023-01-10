@@ -1,7 +1,5 @@
 (ns ring-clr.util.request
-  (:require [clojure.string :as str])
-  (:import 
-           [System.Net HttpListenerRequest]))
+  (:require [clojure.string :as str]))
 
 (defn ->ring-protocol
   [protocol-version]
