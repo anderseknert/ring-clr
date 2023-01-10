@@ -37,3 +37,10 @@ From the project root directory:
 ```shell
 CLOJURE_LOAD_PATH=src:test Clojure.Main -m ring-clr.test
 ```
+
+## TODO
+
+Lots :)
+
+* Add implementation for all types of `StreamableResponseBody`
+* Calculate and set `content-length` header

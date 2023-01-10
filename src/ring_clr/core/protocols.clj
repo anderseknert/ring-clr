@@ -1,5 +1,5 @@
 (ns ring-clr.core.protocols
-  (:import [System.IO StreamWriter Stream])
+  (:import [System.IO BinaryWriter StreamWriter Stream])
   (:require [ring-clr.util.response :as response]
             [ring-clr.util.platform :as platform])) ; TODO: move to codec
 
@@ -15,21 +15,19 @@
     (StreamWriter. output-stream)))
 
 (extend-protocol StreamableResponseBody
-;;   (Class/forName "[B")
-;;   (write-body-to-stream [body _ ^OutputStream output-stream]
-;;     (.write output-stream ^bytes body)
-;;     (.close output-stream))
+  Byte[]
+  (write-body-to-stream [body _ ^Stream output-stream]
+    (with-open [binary-writer (BinaryWriter. output-stream)]
+      (.Write binary-writer ^Byte[] body)))
   String
   (write-body-to-stream [body response output-stream]
-    (doto (response-writer response output-stream)
-      (.Write body)
-      (.Close)))
-;;   clojure.lang.ISeq
-;;   (write-body-to-stream [body response output-stream]
-;;     (let [writer (response-writer response output-stream)]
-;;       (doseq [chunk body]
-;;         (.write writer (str chunk)))
-;;       (.close writer)))
+    (with-open [writer (response-writer response output-stream)]
+      (.Write writer body)))
+  clojure.lang.ISeq
+  (write-body-to-stream [body response output-stream]
+    (with-open [writer (response-writer response output-stream)]
+      (doseq [chunk body]
+        (.Write writer (str chunk)))))
 ;;   java.io.InputStream
 ;;   (write-body-to-stream [body _ ^OutputStream output-stream]
 ;;     (with-open [body body]
