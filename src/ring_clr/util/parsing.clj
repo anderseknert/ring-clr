@@ -1,5 +1,6 @@
 (ns ring-clr.util.parsing
-  "Regular expressions for parsing HTTP. For internal use.")
+  "Regular expressions for parsing HTTP. For internal use."
+  (:require [clojure.string :as str]))
 
 (def ^{:doc "HTTP token: 1*<any CHAR except CTLs or tspecials>. See RFC2068"}
   re-token
@@ -15,10 +16,11 @@
 
 (def ^{:doc "Pattern for pulling the charset out of the content-type header"}
   re-charset
-  (re-pattern (str ";(?:.*\\s)?(?i:charset)=(?:" re-value ")\\s*(?:;|$)")))
+  (re-pattern (str ";?charset=(" re-value ");?")))
 
 (defn find-content-type-charset
   "Return the charset of a given a content-type string."
   [s]
   (when-let [m (re-find re-charset s)]
-    (or (m 1) (m 2))))
+    (let [m (mapv #(str/replace % #"\"" "") m)]
+      (or (m 1) (m 2)))))

@@ -8,7 +8,6 @@
     "ascii"      Encoding/ASCII
     "iso-8859-1" Encoding/Latin1
     "utf-7"      Encoding/UTF7
-    ;"utf-16"     Encoding/UTF16
     "utf-32"     Encoding/UTF32
     Encoding/UTF8))
 
