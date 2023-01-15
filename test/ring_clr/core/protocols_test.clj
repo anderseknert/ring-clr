@@ -13,6 +13,11 @@
       (write-body-to-stream "foo" {} (clr/file-create path))
       (is (= (clr/stream->str (clr/file-read path)) "foo"))))
 
+  (testing "clojure.lang.ISeq"
+    (let [path (clr/tmp-file-path)]
+      (write-body-to-stream '("foo" "bar") {} (clr/file-create path))
+      (is (= (clr/stream->str (clr/file-read path)) "foobar"))))
+  
   (testing "nil"
     (let [path (clr/tmp-file-path)
           stream (clr/file-create path)]
