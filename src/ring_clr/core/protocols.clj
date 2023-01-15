@@ -15,10 +15,10 @@
     (StreamWriter. output-stream)))
 
 (extend-protocol StreamableResponseBody
-  Byte[]
-  (write-body-to-stream [body _ ^Stream output-stream]
-    (with-open [binary-writer (BinaryWriter. output-stream)]
-      (.Write binary-writer ^Byte[] body)))
+  ;; Byte[]
+  ;; (write-body-to-stream [body _ ^Stream output-stream]
+  ;;   (with-open [binary-writer (BinaryWriter. output-stream)]
+  ;;     (.Write binary-writer ^Byte[] body)))
   String
   (write-body-to-stream [body response output-stream]
     (with-open [writer (response-writer response output-stream)]
@@ -37,7 +37,6 @@
 ;;   (write-body-to-stream [body _ ^OutputStream output-stream]
 ;;     (io/copy body output-stream)
 ;;     (.close output-stream))
-;;   nil
-;;   (write-body-to-stream [_ _ ^java.io.OutputStream output-stream]
-;;     (.close output-stream))
-  )
+  nil
+  (write-body-to-stream [_ _ ^Stream output-stream]
+    (.Close output-stream)))
