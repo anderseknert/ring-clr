@@ -3,23 +3,35 @@
             [ring-clr.core.protocols :refer [write-body-to-stream]]
             [ring-clr.util.platform :as clr]))
 
-; NOTE: we should use a MemoryStream for tests, but this is not possible until
-; https://ask.clojure.org/index.php/12549/using-proxy-to-extend-memorystream-fails-on-close
-; is resolved
-
 (deftest test-write-body-to-stream
+  (testing "bytes"
+    (let [body   (clr/str->bytes "foo")
+          stream (clr/empty-memory-stream body)]
+      (write-body-to-stream body {} stream)
+      (is (= (clr/stream->str stream) "foo"))))
+
   (testing "string"
-    (let [path (clr/tmp-file-path)]
-      (write-body-to-stream "foo" {} (clr/file-create path))
-      (is (= (clr/stream->str (clr/file-read path)) "foo"))))
+    (let [body   "foo"
+          stream (clr/empty-memory-stream body)]
+      (write-body-to-stream body {} stream)
+      (is (= (clr/stream->str stream) "foo"))))
 
   (testing "clojure.lang.ISeq"
-    (let [path (clr/tmp-file-path)]
-      (write-body-to-stream '("foo" "bar") {} (clr/file-create path))
-      (is (= (clr/stream->str (clr/file-read path)) "foobar"))))
-  
+    (let [body   '("foo" "bar")
+          stream (clr/empty-memory-stream)]
+      (write-body-to-stream body {} stream)
+      (is (= (clr/memory-stream->str-safe stream) "foobar"))))
+
+  (testing "Stream"
+    (let [body   (clr/reset-stream! (clr/->memory-stream "foo"))
+          stream (System.IO.MemoryStream.)]
+      (write-body-to-stream body {} stream)
+      (is (= (clr/memory-stream->str-safe stream) "foo"))))
+
   (testing "nil"
-    (let [path (clr/tmp-file-path)
-          stream (clr/file-create path)]
-      (write-body-to-stream nil {} stream)
-      (is (false? (or (.CanRead stream) (.CanWrite stream)))))))
+    (let [body   nil
+          stream (clr/empty-memory-stream)]
+      (write-body-to-stream body {} stream)
+      (is (false? (or (.CanRead stream) (.CanWrite stream))))))
+  
+  )

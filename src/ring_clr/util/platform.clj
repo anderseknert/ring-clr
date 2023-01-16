@@ -1,7 +1,7 @@
 (ns ring-clr.util.platform
   (:require [clojure.string :as str])
   (:import [System.Text Encoding]
-           [System.IO File MemoryStream Path SeekOrigin StreamReader]))
+           [System.IO File MemoryStream Path StreamReader]))
 
 (defn charset->encoding
   [charset]
@@ -18,17 +18,38 @@
   ([s encoding]
    (.GetBytes encoding s)))
 
-(defn str->memory-stream [s]
-  (let [stream (MemoryStream.)]
-    (.Write stream (str->bytes s))
-    (.Seek stream 0 SeekOrigin/Begin)))
+(defn bytes->str
+  ([b]
+   (bytes->str b Encoding/UTF8))
+  ([b encoding]
+   (.GetString encoding b)))
+
+(defn empty-memory-stream 
+  ([]
+   (MemoryStream.))
+  ([x]
+   (cond
+     (string? x)    (empty-memory-stream (str->bytes x))
+     (bytes? x)     (MemoryStream. (count x))
+     :else          (println "unhandled type" (type x) "with value" x))))
+
+(defn reset-stream! [stream]
+  (set! (. stream Position) 0)
+  stream)
+
+(defn ->memory-stream [s]
+  (let [bytes (str->bytes s)
+        stream (empty-memory-stream s)]
+    (doto stream (.Write bytes 0 (count bytes)))))
 
 (defn stream->str [stream]
-  (when (instance? MemoryStream stream)
-    (.Seek stream 0 SeekOrigin/Begin))
-  (with-open [reader (StreamReader. stream Encoding/UTF8)]
-    (.ReadToEnd reader)))
+  (if (instance? MemoryStream stream)
+    (bytes->str (.GetBuffer stream))
+    (with-open [reader (StreamReader. stream Encoding/UTF8)]
+      (.ReadToEnd reader))))
 
+(defn memory-stream->str-safe [stream]
+  (bytes->str (.ToArray stream)))
 
 (defn tmp-file-path []
   (Path/GetTempFileName))

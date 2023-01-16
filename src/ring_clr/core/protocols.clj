@@ -1,7 +1,8 @@
 (ns ring-clr.core.protocols
   (:import [System.IO BinaryWriter StreamWriter Stream])
   (:require [ring-clr.util.response :as response]
-            [ring-clr.util.platform :as platform])) ; TODO: move to codec
+            [ring-clr.util.platform :as platform]
+            [ring-clr.util.platform :as clr])) ; TODO: move to codec
 
 (defprotocol StreamableResponseBody
   "A protocol for writing data to the response body via an output stream."
@@ -15,10 +16,10 @@
     (StreamWriter. output-stream)))
 
 (extend-protocol StreamableResponseBody
-  ;; Byte[]
-  ;; (write-body-to-stream [body _ ^Stream output-stream]
-  ;;   (with-open [binary-writer (BinaryWriter. output-stream)]
-  ;;     (.Write binary-writer ^Byte[] body)))
+  (Type/GetType "System.Byte[]")
+  (write-body-to-stream [^bytes body _ ^Stream output-stream]
+    (.Write output-stream body 0 (count body))
+    (.Close output-stream))
   String
   (write-body-to-stream [body response output-stream]
     (with-open [writer (response-writer response output-stream)]
@@ -28,11 +29,11 @@
     (with-open [writer (response-writer response output-stream)]
       (doseq [chunk body]
         (.Write writer (str chunk)))))
-;;   java.io.InputStream
-;;   (write-body-to-stream [body _ ^OutputStream output-stream]
-;;     (with-open [body body]
-;;       (io/copy body output-stream))
-;;     (.close output-stream))
+  Stream
+  (write-body-to-stream [^Stream body _ ^Stream output-stream]
+    (with-open [input-stream body]
+      (.CopyTo input-stream output-stream (int 81920))
+      (.Close output-stream)))
 ;;   java.io.File
 ;;   (write-body-to-stream [body _ ^OutputStream output-stream]
 ;;     (io/copy body output-stream)
