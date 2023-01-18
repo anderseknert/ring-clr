@@ -44,3 +44,4 @@ Lots :)
 
 * Add implementation for all types of `StreamableResponseBody`
 * Calculate and set `content-length` header
+* Datetime parsing of other formats than RFC 1123
