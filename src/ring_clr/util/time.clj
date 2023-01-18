@@ -22,7 +22,6 @@
 (defn parse-date
   "Attempt to parse a HTTP date. Returns nil if unsuccessful."
   [http-date]
-  (println http-date)
   (->> (keys http-date-formats)
        (map (partial attempt-parse (trim-quotes http-date)))
        (remove nil?)
