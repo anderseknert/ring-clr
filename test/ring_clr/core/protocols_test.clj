@@ -2,6 +2,7 @@
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.clr.io :as io]
             [ring-clr.core.protocols :refer [write-body-to-stream]]
+            [ring-clr.util.io :as rio]
             [ring-clr.util.platform :as clr]))
 
 (deftest test-write-body-to-stream
@@ -24,7 +25,7 @@
       (is (= (clr/memory-stream->str-safe stream) "foobar"))))
 
   (testing "Stream"
-    (let [body   (clr/reset-stream! (clr/->memory-stream "foo"))
+    (let [body   (clr/reset-stream! (rio/string-input-stream "foo"))
           stream (clr/empty-memory-stream)]
       (write-body-to-stream body {} stream)
       (is (= (clr/memory-stream->str-safe stream) "foo"))))

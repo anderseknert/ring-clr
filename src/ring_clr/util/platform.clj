@@ -37,11 +37,6 @@
   (set! (. stream Position) 0)
   stream)
 
-(defn ->memory-stream [s]
-  (let [bytes (str->bytes s)
-        stream (empty-memory-stream s)]
-    (doto stream (.Write bytes 0 (count bytes)))))
-
 (defn stream->str [stream]
   (if (instance? MemoryStream stream)
     (bytes->str (.GetBuffer stream))
