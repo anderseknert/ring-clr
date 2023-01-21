@@ -7,7 +7,7 @@
    {:status 200
     :headers {"X-method" (name (:request-method req))}
     :body "Foobar"})
-  ([req cont raise]
+  ([req cont _]
    (cont
     {:status 200
      :headers {"X-method" (name (:request-method req))}

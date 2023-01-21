@@ -1,5 +1,6 @@
 (ns ring-clr.util.io
   "Utility functions for handling I/O."
+  (:require [ring-clr.util.platform :as clr])
   (:import [System IDisposable]
            [System.IO MemoryStream]
            [System.Text Encoding]))
@@ -28,9 +29,9 @@
 (defn string-input-stream
   "Returns a MemoryStream for the given String."
   ([s]
-   (string-input-stream s Encoding/UTF8))
+   (string-input-stream s "UTF-8"))
   ([s encoding]
-   (MemoryStream. (.GetBytes encoding s))))
+   (MemoryStream. (.GetBytes (clr/charset->encoding encoding) s))))
 
 (defn close!
   "Ensure a stream is closed, swallowing any exceptions."

@@ -12,6 +12,8 @@ built-in [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.
 an adapter, but adding one for e.g. [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel)
 should be doable.
 
+* `ring.util.codec` is included here, and not in a separate project.
+
 Except for that, things should work pretty much the same, and much of existing middleware should work as-is.
 
 ## Kicking the gears
@@ -44,4 +46,5 @@ Lots :)
 
 * Add implementation for all types of `StreamableResponseBody`
 * Calculate and set `content-length` header
+* Most of the stuff around serving static files
 * Datetime parsing of other formats than RFC 1123

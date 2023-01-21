@@ -1,7 +1,8 @@
 (ns ring-clr.util.response
   "Functions for generating and augmenting response maps."
   (:require [clojure.string :as str]
-            [ring-clr.util.parsing :as parsing]))
+            [ring-clr.util.parsing :as parsing])
+  (:import  [System StringComparison]))
 
 (def redirect-status-codes
   "Map a keyword to a redirect status code."

@@ -11,7 +11,6 @@
    })
 
 (defn- attempt-parse [date format]
-  (println date format)
   (try
     (DateTime/ParseExact date (get http-date-formats format) CultureInfo/InvariantCulture)
     (catch FormatException _ nil)))
