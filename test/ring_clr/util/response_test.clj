@@ -1,6 +1,8 @@
 (ns ring-clr.util.response-test
   (:require [clojure.test :refer [are deftest is testing]]
-            [ring-clr.util.response :refer :all]))
+            [ring-clr.util.response :refer [bad-request content-type charset created find-header get-charset get-header
+                                            header not-found redirect response response? set-cookie status
+                                            update-header]]))
 
 (deftest test-redirect
   (is (= {:status 302 :headers {"Location" "http://google.com"} :body ""}

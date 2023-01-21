@@ -4,8 +4,6 @@
             [ring-clr.util.platform :as clr])
   (:import [System Convert Uri]
            [System.Collections IDictionary]
-           [System.Globalization NumberStyles]
-           [System.Text Encoding]
            [System.Web HttpUtility]))
 
 (defn assoc-conj
