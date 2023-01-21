@@ -4,6 +4,7 @@
             [ring-clr.middleware.content-type-test]
             [ring-clr.middleware.head-test]
             [ring-clr.middleware.keyword-params-test]
+            [ring-clr.middleware.nested-params-test]
             [ring-clr.middleware.params-test]
             [ring-clr.util.codec-test]
             [ring-clr.util.mime-type-test]
