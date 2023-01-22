@@ -29,4 +29,4 @@
 (defn format-date
   "Format a date as RFC1123 format."
   [^DateTime date]
-  (DateTime/ParseExact date (:rfc1123 http-date-formats) CultureInfo/InvariantCulture))
+  (.ToString date (:rfc1123 http-date-formats) CultureInfo/InvariantCulture))

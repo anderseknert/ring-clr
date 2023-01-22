@@ -1,5 +1,5 @@
 (ns ring-clr.middleware.nested-params-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [are deftest is testing]]
             [clojure.string :as str]
             [ring-clr.middleware.nested-params :refer :all]))
 
