@@ -46,7 +46,7 @@
   ([unencoded encoding]
    (str/replace unencoded #"[^A-Za-z0-9_~.+-]+" #(double-escape (percent-encode % encoding)))))
 
-(defn ^String url-decode
+(defn url-decode
   "Returns the url-decoded version of the given string, using either a specified
   encoding or UTF-8 by default. If the encoding is invalid, nil is returned."
   ([encoded]

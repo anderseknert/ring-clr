@@ -1,7 +1,7 @@
 (ns ring-clr.middleware.nested-params-test
   (:require [clojure.test :refer [are deftest is testing]]
             [clojure.string :as str]
-            [ring-clr.middleware.nested-params :refer :all]))
+            [ring-clr.middleware.nested-params :refer [nested-params-request wrap-nested-params]]))
 
 (deftest nested-params-test
   (let [handler (wrap-nested-params :params)]

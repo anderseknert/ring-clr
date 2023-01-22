@@ -1,7 +1,7 @@
 (ns ring-clr.middleware.cookies-test
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
-            [ring-clr.middleware.cookies :refer :all])
+            [ring-clr.middleware.cookies :refer [cookies-request cookies-response wrap-cookies]])
   (:import [System DateTime TimeSpan])
   )
 

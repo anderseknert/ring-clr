@@ -43,7 +43,6 @@
 ;; (defn last-modified-date
 ;;   "Returns the last modified date for a file, rounded down to the nearest
 ;;   second."
-;;   {:added "1.2"}
 ;;   [^File file]
 ;;   (-> (.lastModified file)
 ;;       (/ 1000) (long) (* 1000)

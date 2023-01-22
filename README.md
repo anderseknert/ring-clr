@@ -13,10 +13,11 @@ an adapter, but adding one for e.g. [Kestrel](https://learn.microsoft.com/en-us/
 should be doable.
 
 * `ring.util.codec` is included here, and not in a separate project.
+* No time or effort spent on non-UTF8 encodings — it's 2023.
 
 Except for that, things should work pretty much the same, and much of existing middleware should work as-is.
 
-## Kicking the gears
+## Try it out!
 
 ```clojure
 (ns app
