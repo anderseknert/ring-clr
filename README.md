@@ -10,7 +10,7 @@ Since ring is essentially an abstraction on top of the Servlet API, and there is
 ClojureCLR adapters wrapping the HTTP server implementation will need to be more comprehensive. Currently only the
 built-in [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener) server has been provided
 an adapter, but adding one for e.g. [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel)
-should be doable.
+should be doable. Other differences should be minimal:
 
 * `ring.util.codec` is included here, and not in a separate project.
 * No time or effort spent on non-UTF8 encodings — it's 2023.
@@ -45,7 +45,7 @@ CLOJURE_LOAD_PATH=src:test Clojure.Main -m ring-clr.test
 
 Lots :)
 
-* Add implementation for all types of `StreamableResponseBody`
-* Calculate and set `content-length` header
-* Most of the stuff around serving static files
-* Datetime parsing of other formats than RFC 1123
+- [x] Add implementation for all types of `StreamableResponseBody`
+- [ ] Calculate and set `content-length` header
+- [ ] Most of the stuff around serving static files
+- [ ] Datetime parsing of other formats than RFC 1123
