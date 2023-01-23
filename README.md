@@ -14,6 +14,7 @@ should be doable. Other differences should be minimal:
 
 * Serving a "resource" (i.e. from classpath / jar) not applicable here
 * `ring.util.codec` is included here, and not in a separate project
+* Nothing marked deprecated in ring has been included here
 * No time or effort spent on non-UTF8 encodings — it's 2023
 
 Except for that, things should work pretty much the same, and much of existing middleware should work as-is.
