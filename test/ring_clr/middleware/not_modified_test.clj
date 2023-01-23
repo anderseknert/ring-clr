@@ -2,12 +2,6 @@
   (:require [clojure.test :refer [are deftest is testing]]
             [ring-clr.middleware.not-modified :refer [not-modified-response wrap-not-modified]]))
 
-(defn- handler-etag [etag]
-  (constantly
-   {:status 200
-    :headers {"etag" etag}
-    :body ""}))
-
 (defn- handler-modified [modified]
   (constantly
    {:status 200

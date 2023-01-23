@@ -10,6 +10,7 @@
             [ring-clr.middleware.nested-params-test]
             [ring-clr.middleware.not-modified-test]
             [ring-clr.middleware.params-test]
+            [ring-clr.middleware.session.memory-test]
             [ring-clr.util.codec-test]
             [ring-clr.util.mime-type-test]
             [ring-clr.util.request-test]

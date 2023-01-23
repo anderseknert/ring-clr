@@ -46,5 +46,7 @@ CLOJURE_LOAD_PATH=src:test Clojure.Main -m ring-clr.test
 
 - [x] Add implementation for all types of `StreamableResponseBody`
 - [ ] Calculate and set `content-length` header
-- [ ] Most of the stuff around serving static files
+- [x] Most of the stuff around serving static files
+- [ ] File upload (multipart params) middleware
+- [ ] Cookie session store middleware
 - [ ] Datetime parsing of other formats than RFC 1123
