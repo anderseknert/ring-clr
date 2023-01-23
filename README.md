@@ -12,8 +12,9 @@ built-in [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.
 an adapter, but adding one for e.g. [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel)
 should be doable. Other differences should be minimal:
 
-* `ring.util.codec` is included here, and not in a separate project.
-* No time or effort spent on non-UTF8 encodings — it's 2023.
+* Serving a "resource" (i.e. from classpath / jar) not applicable here
+* `ring.util.codec` is included here, and not in a separate project
+* No time or effort spent on non-UTF8 encodings — it's 2023
 
 Except for that, things should work pretty much the same, and much of existing middleware should work as-is.
 
@@ -42,8 +43,6 @@ CLOJURE_LOAD_PATH=src:test Clojure.Main -m ring-clr.test
 ```
 
 ## TODO
-
-Lots :)
 
 - [x] Add implementation for all types of `StreamableResponseBody`
 - [ ] Calculate and set `content-length` header

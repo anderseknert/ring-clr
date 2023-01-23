@@ -58,7 +58,6 @@
 (defn nested-params-request
   "Converts a request with a flat map of parameters to a nested map.
   See: wrap-nested-params."
-  {:added "1.2"}
   ([request]
    (nested-params-request request {}))
   ([request options]
