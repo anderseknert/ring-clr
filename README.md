@@ -4,21 +4,6 @@ Experimental ClojureCLR port of [Ring](https://github.com/ring-clojure/ring), bu
 an example of what a ClojureCLR project might look like, and — in the spirit of
 [ClojureCLR](https://github.com/clojure/clojure-clr) — to have some fun!
 
-## Differences from ring
-
-Since Ring is essentially an abstraction on top of the Servlet API, and there is no Servlet API in the CLR, the
-ClojureCLR adapters wrapping the HTTP server implementation will need to be more comprehensive. Currently only the
-built-in [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener) server has been provided
-an adapter, but adding one for e.g. [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel)
-should be doable. Other differences should be minimal:
-
-* Serving a "resource" (i.e. from classpath / jar) not applicable here
-* `ring.util.codec` is included in core, and not in a separate project
-* Nothing marked deprecated in Ring has been included in this port
-* No time or effort spent on non-UTF8 encodings — it's 2023
-
-Except for that, things should work pretty much the same, and much of existing middleware should work as-is.
-
 ## Try it out!
 
 ```clojure
@@ -33,6 +18,21 @@ Except for that, things should work pretty much the same, and much of existing m
 (defn -main []
   (server/run-httplistener handler))
 ```
+
+## Differences from Ring
+
+Since Ring is essentially an abstraction on top of the Servlet API, and there is no Servlet API in the CLR, the
+ClojureCLR adapters wrapping the HTTP server implementation will need to be more comprehensive. Currently only the
+built-in [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener) server has been provided
+an adapter, but adding one for e.g. [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel)
+should be doable. Other differences should be minimal:
+
+* Serving a "resource" (i.e. from classpath / jar) not applicable here
+* `ring.util.codec` is included in core, and not in a separate project
+* Nothing marked deprecated in Ring has been included in this port
+* No time or effort spent on non-UTF8 encodings — it's 2023
+
+Except for that, things should work pretty much the same, and much of existing middleware should work as-is.
 
 ## Documentation
 
@@ -66,3 +66,4 @@ CLOJURE_LOAD_PATH=src:test Clojure.Main -m ring-clr.test
 - [ ] Datetime parsing of other formats than RFC 1123
 - [ ] Provide ClojureCLR specific documentation
 - [ ] Use .cljr extension for all files, ensure tooling understands it
+- [ ] Publish to Nuget, maybe Clojars
