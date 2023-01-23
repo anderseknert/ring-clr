@@ -4,6 +4,7 @@
             [ring-clr.middleware.content-type-test]
             [ring-clr.middleware.cookies-test]
             [ring-clr.middleware.file-test]
+            [ring-clr.middleware.flash-test]
             [ring-clr.middleware.head-test]
             [ring-clr.middleware.keyword-params-test]
             [ring-clr.middleware.nested-params-test]
