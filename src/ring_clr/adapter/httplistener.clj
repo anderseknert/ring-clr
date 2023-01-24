@@ -4,6 +4,7 @@
    Adapters are used to convert Ring handlers into running web servers."
   (:require [clojure.string :as str]
             [ring-clr.core.protocols :as protocols]
+            [ring-clr.middleware.content-length :as content-length]
             [ring-clr.util.request :as request])
   (:import [System Environment]
            [System.Net HttpListener HttpListenerRequest HttpListenerResponse HttpListenerException]))
@@ -49,14 +50,14 @@
 
 (defn- body!
   [^HttpListenerResponse response response-map]
-  (protocols/write-body-to-stream (:body response-map) response (.OutputStream response)))
+  (protocols/write-body-to-stream (:body response-map) response-map (.OutputStream response)))
 
 (defn serve [^HttpListener listener handler]
   (while @running
     (try
       (let [context (.GetContext listener)]
         (future
-          (let [response (.Response context)
+          (let [response     (.Response context)
                 request-map  (-> context .Request ->ring-request)
                 response-map (handler request-map)]
             (-> response
@@ -77,8 +78,10 @@
   (swap! running (constantly false)))
 
 (defn- create-listener [{:keys [host port] :or {host "localhost" port 8000}}]
-  (let [listener (HttpListener.)]
-    (-> listener .Prefixes (.Add (format "http://%s:%d/" host port)))
+  (let [listener (HttpListener.)
+        host-port (format "http://%s:%d/" host port)]
+    (-> listener .Prefixes (.Add host-port))
+    (println "Listening on" host-port)
     listener))
 
 ; TODO: ssl, custom thread pool, async.. more :)
@@ -91,7 +94,8 @@
   ([handler]
    (run-httplistener handler {}))
   ([handler options]
-   (let [listener (create-listener options)]
+   (let [listener (create-listener options)
+         handler (content-length/wrap-content-length handler)]
      (when-let [configurator (:configurator options)]
        (configurator listener))
      (try

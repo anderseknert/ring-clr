@@ -176,7 +176,7 @@
    :content-length (.Length file)
    :last-modified  (io/last-modified-date file)})
 
-(defn- content-length [resp len]
+(defn content-length [resp len]
   (if len
     (header resp "Content-Length" len)
     resp))

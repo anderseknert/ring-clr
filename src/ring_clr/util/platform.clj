@@ -1,7 +1,7 @@
 (ns ring-clr.util.platform
   (:require [clojure.string :as str])
   (:import [System.Text Encoding]
-           [System.IO File MemoryStream Path StreamReader]))
+           [System.IO File MemoryStream Path SeekOrigin StreamReader]))
 
 (defn charset->encoding
   [charset]
@@ -38,6 +38,14 @@
   (set! (. stream Position) 0)
   stream)
 
+(defn str->memory-stream
+  "Create a memory stream from string and reset its position for reading"
+  [s]
+  (let [bytes (str->bytes s)]
+    (doto (MemoryStream. (count bytes))
+      (.Write bytes 0 (count bytes))
+      (.Seek 0 SeekOrigin/Begin))))
+
 (defn stream->str [stream]
   (if (instance? MemoryStream stream)
     (bytes->str (.GetBuffer stream))
@@ -49,11 +57,3 @@
 
 (defn tmp-file-path []
   (Path/GetTempFileName))
-
-(defn file-create [path]
-  (File/Create path))
-
-(defn file-read [path]
-  (File/OpenRead path))
-
-
