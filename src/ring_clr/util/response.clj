@@ -124,9 +124,6 @@
        (integer? (:status resp))
        (map? (:headers resp))))
 
-(defn- canonical-path ^String [^FileSystemInfo file]
-  (io/->canonical-path (.FullName file)))
-
 (defn- safe-path? [^String root ^String path]
   (str/starts-with? (io/->canonical-path (io/->path root path))
                     (io/->canonical-path root)))

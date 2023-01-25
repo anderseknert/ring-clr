@@ -1,7 +1,7 @@
 (ns ring-clr.util.platform
   (:require [clojure.string :as str])
   (:import [System.Text Encoding]
-           [System.IO File MemoryStream Path SeekOrigin StreamReader]))
+           [System.IO MemoryStream Path SeekOrigin StreamReader]))
 
 (defn charset->encoding
   [charset]
