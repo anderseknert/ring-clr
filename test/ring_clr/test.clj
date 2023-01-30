@@ -16,8 +16,10 @@
             [ring-clr.util.mime-type-test]
             [ring-clr.util.request-test]
             [ring-clr.util.response-test]
-            [ring-clr.util.time-test]))
+            [ring-clr.util.time-test])
+  (:import  [System Environment]))
 
 (defn -main []
-  (run-all-tests #"^ring-clr(.*)-test"))
+  (let [exit-code (apply + ((juxt :fail :error) (run-all-tests #"^ring-clr(.*)-test")))]
+    (set! (. Environment -ExitCode) exit-code)))
 
