@@ -1,0 +1,13 @@
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: dotnet tool install --global --version 1.12.0-alpha3 Clojure.Main
+    - run: CLOJURE_LOAD_PATH=src:test Clojure.Main -m ring-clr.test

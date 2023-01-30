@@ -19,7 +19,7 @@ an example of what a ClojureCLR project might look like, and — in the spirit o
   (server/run-httplistener handler))
 ```
 
-Run the above from a REPL, or run the `demo.clj` file provided with the repo:
+Run the above from a REPL, or run the `app.clj` file provided with the repo:
 
 ```shell
 CLOJURE_LOAD_PATH=src:demo Clojure.Main -m app
