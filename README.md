@@ -1,5 +1,7 @@
 # ring-clr
 
+![build](https://github.com/anderseknert/ring-clr/actions/workflows/build.yaml/badge.svg)
+
 Experimental ClojureCLR port of [Ring](https://github.com/ring-clojure/ring), built mainly for the purpose of providing
 an example of what a ClojureCLR project might look like, and — in the spirit of
 [ClojureCLR](https://github.com/clojure/clojure-clr) — to have some fun!
