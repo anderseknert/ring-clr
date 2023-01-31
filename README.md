@@ -8,6 +8,13 @@ an example of what a ClojureCLR project might look like, and — in the spirit o
 
 ## Try it out!
 
+### Prerequisites
+
+* `brew install dotnet` (or any other way of installing .NET)
+* `dotnet tool install --global --version 1.12.0-alpha3 Clojure.Main`
+
+### Running ring-clr
+
 ```clojure
 (ns app
   (:require [ring-clr.adapter.httplistener :as server]))
