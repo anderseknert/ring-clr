@@ -80,5 +80,5 @@ CLOJURE_LOAD_PATH=src:test Clojure.Main -m ring-clr.test
 - [ ] Cookie session store middleware
 - [ ] Datetime parsing of other formats than RFC 1123
 - [ ] Provide ClojureCLR specific documentation
-- [ ] Use .cljr extension for all files, ensure tooling understands it
+- [x] Use .cljr extension for all files, ensure tooling understands it
 - [ ] Publish to Nuget, maybe Clojars
