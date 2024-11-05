@@ -11,7 +11,7 @@ an example of what a ClojureCLR project might look like, and — in the spirit o
 ### Prerequisites
 
 * `brew install dotnet` (or any other way of installing .NET)
-* `dotnet tool install --global --version 1.12.0-alpha3 Clojure.Main`
+* `dotnet tool install --global --version 1.12.0-alpha10 Clojure.Main`
 
 ### Running ring-clr
 
@@ -32,6 +32,13 @@ Run the above from a REPL, or run the `app.cljr` file provided with the repo:
 
 ```shell
 CLOJURE_LOAD_PATH=src:demo Clojure.Main -m app
+```
+
+Or with the new CLI tool:
+
+```shell
+dotnet tool install --global --version 0.1.0-alpha4 Clojure.Cljr
+cljr -A:demo -m app
 ```
 
 ## Differences from Ring

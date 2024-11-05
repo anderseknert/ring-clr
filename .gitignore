@@ -6,5 +6,6 @@
 performance.txt
 clj-kondo*.snap
 .planck_cache
+.cpcache
 
 tmp/
